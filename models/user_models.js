@@ -1,0 +1,121 @@
+// creat user model schema
+const mongoose=require('mongoose');
+const userSchema = new mongoose.Schema({
+	
+civilId:{
+	type:String,
+	required:true,
+},
+fcmId:{
+	type:String
+},
+
+user_image:{
+	type:String,
+	required:false,
+},
+first_name:{
+	type:String,
+	required:false,
+},
+second_name:{
+	type:String,
+	required:false,
+},
+last_name:{
+	type:String,
+	required:false,
+},
+first_name_arabic:{
+	type:String,
+	required:false,
+},
+second_name_arabic:{
+	type:String,
+	required:false,
+},
+last_name_arabic:{
+	type:String,
+	required:false,
+},
+family_name:{
+	type:String,
+	required:false,
+},
+country_code:{
+	type:String,
+	required:false, 
+},
+mobile_no:{
+	type:String,
+	required:false, 
+},
+otp:{
+	type:String,
+	required:false, 
+},
+email:{
+	type:String,
+	required:false,
+},
+gender:{
+	type:String,
+	required:false,
+},
+password:{
+	type:String,
+	required:false,
+},
+
+date_of_birth:{
+	type:String,
+	required:false,
+},
+passport:{
+	type:String,
+	required:false,
+},
+civil_expiry_date:{
+	type:String,
+	required:false,
+},
+policy_start_date:{
+	type:String,
+	required:false,
+},
+user_couple:{
+	type:String,
+	required:false,
+},
+nationality:{
+	type:String,
+	required:false,
+},
+occupation:{
+	type:String,
+	required:false,
+},
+language:{
+	type:String,
+	required:false,
+},
+fcm_id:{
+	type:String,
+	required:false,
+},
+token:{  
+	type: String,
+	required:false, 
+},
+user_status:{
+	type:String,
+	required:false,
+	default:0
+},
+form_status:{
+	type:String,
+	required:false,
+},
+
+},{timestamps:true});
+module.exports = UserModel= mongoose.model("user",userSchema);

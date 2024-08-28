@@ -1,0 +1,79 @@
+<%-include('./admin_header.ejs')%>
+<%-include('./admin_left_menu_bar.ejs')%>
+
+
+<section class="content dashboard">
+
+    <div class="page-heading">
+        <h1>Add Insurance Premium </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/index">Home</a></li>
+            <li class="active">Insurance Premium</li>
+        </ol>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <button class="btn btn-info"><i class="fa fa-plus"></i> <a href="/admin/create_premium">Add New</a></button>
+        </div>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table js-exportable table-bordered">
+                    
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Insurance Premium </th>
+                            <th>Premium Type</th>
+                            <th>Duration (Year)</th>
+                            <th>Policy Fee</th>
+                            <th>Submission Fee</th>
+                            <th>Created Date</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <!--<th>Delete</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < data.length; i++) { %>
+                             <tr>
+ 
+                             <td><%= i+1%></td>
+                             <td><%=data[i].premium_type%></td>
+                             <td><%=data[i].sub_premium_type%></td>
+                             <td><%=data[i].duration%></td>
+                             <td><%=data[i].policy_fee%> KWD</td>
+                             <td><%=data[i].submission_fee%> KWD</td>
+                             <td><%= new Date(data[i].createdAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) %></td>
+                             <td>
+                                 <% if(data[i].premium_status==0) { %>
+                                     <a href="/admin/update_premium_status/<%=data[i]._id%>"  class="btn btn-success" >Active</a>
+                                 <% } else { %>
+                                     <a href="/admin/update_premium_status/<%=data[i]._id%>"  class="btn btn-danger">Deactive </a>
+                                 <% } %>
+                             </td>
+ 
+                             <td>
+                                  <a href="/admin/edit_premium/<%=data[i]._id%>" class="btn btn-primary">
+                                 <i class="fa fa-edit"></i>
+                                 </a>
+                             </td>
+ 
+                             <!--<td>
+ 
+                             <a href ="/admin/delete_premium/<%=data[i]._id%>"class="btn btn-circle  btn-sm  btn-danger"><i c>
+ 
+                             </td>-->
+                             </tr>
+                         <% } %>
+                     </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+        </div>
+    </section>
+    <%-include('./admin_footer.ejs')%>
+    

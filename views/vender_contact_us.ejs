@@ -1,0 +1,87 @@
+<%-include('./vender_header.ejs')%>
+<%-include('./vender_left_menu_bar.ejs')%>
+
+<section class="content dashboard">
+    
+   
+    <div class="page-heading">
+        <h1>Contact Us</h1>
+        <ol class="breadcrumb">
+            <li><a href="/vender/index">Home</a></li>
+            <li class="active">contact us</li>
+        </ol>
+    </div>
+   
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            
+        </div>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table js-exportable table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Whatsapp</th>
+                            <th>Email</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th>Created By</th>
+                            <th>Updated By</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <% for(var i=0; i < data.length; i++) { %>
+                            <tr>
+                                
+                            <td><%= i+1%></td>
+                            <td><%=data[i].name%></td> 
+                            <td><%=data[i].phone_no%></td>
+                            <td><%=data[i].whatsapp_no%></td>
+                            <td><%=data[i].email%></td>
+                            <td><%= new Date(data[i].createdAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) %></td> 
+                            <td><%= new Date(data[i].updatedAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) %></td>
+                            <td>
+                            <% if (data[i].createdBy) { %>
+                                <%=data[i].createdBy%>
+                            <% } else { %> 
+                                Not Available
+                            <% } %>    
+                            </td> 
+                            <td>
+                            <% if (data[i].updatedBy) { %>
+                               <%= data[i].updatedBy %>
+                            <% } else { %> 
+                                Not Available
+                            <% } %>
+                            </td>   
+                            
+                            <td>
+                               <a href="/vender/edit_vender_contact_us/<%=data[i]._id%>" class="btn btn-primary">
+                                <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+
+                            <!--<td>
+                                <a href ="/vender/delete_privacy_policy/<%=data[i]._id%>"class="btn btn-circle  btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
+                            </td>-->
+                            </tr>
+                        <% } %>
+                    </tbody>
+                   
+
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+</section>
+<%-include('./vender_footer.ejs')%>

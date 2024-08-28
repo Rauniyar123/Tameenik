@@ -1,0 +1,229 @@
+<%-include('./admin_header.ejs')%>
+<%-include('./admin_left_menu_bar.ejs')%>
+<script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+<style type="text/css">
+    .form-horizontal {
+        margin-left: 25px;
+    }
+
+    .content {
+        margin-left: 118px;
+        margin-right: 5px;
+    }
+
+    .page-heading {
+        text-align: center;
+    }
+
+    .box {
+        display: block;
+        background-color: rgba(200, 200, 200, .25);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        overflow: hidden;
+        padding: 40px;
+    }
+
+    .js--image-preview input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .js--image-preview label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-weight: 400;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .js--image-preview label span {
+        display: inline-block;
+        width: 50%;
+        height: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .js--image-preview label span:hover i.material-icons {
+        color: lightgray;
+    }
+
+    .js--image-preview {
+        height: 200px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background-image: url("");
+        background-color: transparent;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 1px dashed;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color ease-in-out 150ms;
+    }
+
+    .js--image-preview::after {
+        content: "photo_size_select_actual";
+        font-family: "Material Icons";
+        position: relative;
+        font-size: 4.5em;
+        color: #e6e6e6;
+        top: calc(50% - 2rem);
+        left: calc(50% - 2.25rem);
+        z-index: 0;
+    }
+
+    .js--image-preview.js--no-default::after {
+        display: none;
+    }
+
+    .js--image-preview:nth-child(2) {
+        background-image: url("http://bastianandre.at/giphy.gif");
+    }
+
+    .drop {
+        display: block;
+        position: absolute;
+        background: rgba(95, 158, 160, 0.2);
+        border-radius: 100%;
+        transform: scale(0);
+    }
+
+    .animate {
+        -webkit-animation: ripple 0.4s linear;
+        animation: ripple 0.4s linear;
+    }
+</style>
+
+<section class="content dashboard">
+
+    <div class="page-heading">
+        <h1 style="margin-right: 120px ;"><b>Create Admin Staff</b></h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/role_list"><b>admin staff list</b></a></li>
+            <li class="active"><b>create admin staff</b></li>
+        </ol>
+    </div>
+
+    <section class="content">
+        <div class="page-body clearfix">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <?php echo $title; ?>
+                </div>
+                <h5 style="color: blue"><%=msg%></h5>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/admin/add_role" enctype="multipart/form-data"
+                        method="POST">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label><b>User Name</b></label>
+                                <input type="text" class="form-control" name="user_name"
+                                    placeholder="Enter User Name" required />
+                            </div> 
+                            <div class="col-sm-6">
+                                <label><b>Email</b></label>
+                                <input type="text" class="form-control" name="email"
+                                    placeholder="Enter Email" required />
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label><b>Password</b></label>
+                                <input type="text" class="form-control" name="password"
+                                    placeholder="Enter Password" required />
+                            </div> 
+                            <div class="col-sm-6">
+                                <label><b>Role Type</b></label>
+                                <input type="text" class="form-control" name="role_type"
+                                    placeholder="Enter Admin Role Type" required />
+                            </div>
+                        </div> 
+                        <div class="form-group"> 
+                            <div class="col-sm-6">
+                                <label><b>Mobile No</b></label>
+                                    <input type="text" class="form-control" name="mobile_no" placeholder="Enter Mobile No"
+                                    required />
+                            </div>
+                            <div class="col-sm-6">
+                                <label><b>address</b></label>
+                                    <input type="text" class="form-control" name="address" placeholder="Enter Address"
+                                            required />
+                            </div>
+                        </div>
+                        <div class="form-group"> 
+                            <div class="col-sm-6">
+                                <label><b>Id Proof No</b></label>
+                                    <input type="text" class="form-control" name="id_proof_no" placeholder="Enter Id Proof No"
+                                            required />
+                            </div>
+                            <div class="col-sm-6">
+                                <label><b>Emloyee No</b></label>
+                                    <input type="text" class="form-control" name="employee_no" placeholder="Enter Employee No"
+                                            required />
+                            </div>
+                        </div> 
+                        <div class="form-group"> 
+                            <div class="col-sm-12">
+                                <label><b>Staff Image</b></label>
+                                    <input type="file" class="form-control" name="image" 
+                                            required />
+                            </div> 
+                        </div>     
+                        <div class="form-group">    
+                            <div class="col-sm-12 m-b-10">
+                                <label><b>Description</b></label>
+                                <textarea type="text" class="form-control"  name="description"
+                                    id="description" placeholder="Enter Description" maxlength="500" ></textarea>
+                                     <span style= "color:red" id="charCount">500 characters remaining</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-success col-sm-2">Save</button>
+                            <a class="btn btn-primary col-sm-2 m-l-10" href="/admin/role_list">Back</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+<%-include('./admin_footer.ejs')%>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
+
+<script>
+    const textarea = document.getElementById('description');
+    const charCount = document.getElementById('charCount');
+    
+    textarea.addEventListener('input', function() {
+        const remaining = 500 - textarea.value.length;
+        charCount.textContent = remaining + ' characters remaining';
+    });
+</script>

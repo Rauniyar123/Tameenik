@@ -1,0 +1,477 @@
+<%-include('./vender_header.ejs')%>
+<%-include('./vender_left_menu_bar.ejs')%>
+<style type="text/css">
+    .form-horizontal {
+        margin-left: 25px;
+    }
+  
+    .contents {
+        margin-left: 250px;
+        margin-right: 20px;
+    }
+  
+    .page-heading {
+        text-align: center;
+    }
+  
+    .box {
+        display: block;
+        background-color: rgba(200, 200, 200, .25);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        overflow: hidden;
+        padding: 40px;
+    }
+  
+    .js--image-preview input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+  
+    .js--image-preview label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-weight: 400;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        overflow: hidden;
+    }
+  
+    .js--image-preview label span {
+        display: inline-block;
+        width: 50%;
+        height: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+    }
+  
+    .js--image-preview label span:hover i.material-icons {
+        color: lightgray;
+    }
+  
+    .js--image-preview {
+        height: 200px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background-image: url("");
+        background-color: transparent;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 1px dashed;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color ease-in-out 150ms;
+    }
+  
+    .js--image-preview::after {
+        content: "photo_size_select_actual";
+        font-family: "Material Icons";
+        position: relative;
+        font-size: 4.5em;
+        color: #e6e6e6;
+        top: calc(50% - 2rem);
+        left: calc(50% - 2.25rem);
+        z-index: 0;
+    }
+  
+    .js--image-preview.js--no-default::after {
+        display: none;
+    }
+  
+    .js--image-preview:nth-child(2) {
+        background-image: url("http://bastianandre.at/giphy.gif");
+    }
+  
+    .drop {
+        display: block;
+        position: absolute;
+        background: rgba(95, 158, 160, 0.2);
+        border-radius: 100%;
+        transform: scale(0);
+    }
+  
+    .animate {
+        -webkit-animation: ripple 0.4s linear;
+        animation: ripple 0.4s linear;
+    }
+  </style>
+  
+
+<section class="content">
+            
+    <div class="page-body">
+        
+        <h3  style="color: hsl(246, 97%, 45%);">Motor Claim Details</h3>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active">
+                    <a href="/public/shop_vender_menu/<%=data._id%>" role="tab" ><h4>Documents</h4></a></li>
+                   
+                </ul>
+
+               
+               </br>
+
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+                <div class="panel panel-default contact-grid">
+                    <div class="panel-body">
+                       
+                        <a href="javascript:void(0);">
+                            <img src="/uploads/<%=data.user_image%>" alt="User Avatar" />
+                            <div class="name-surname"><%=data.firstName%></div>
+                            <div class="place"><%=data.second_name%></div>
+                            <div class="place"><%=data.faimly_name%></div>
+                            <div class="place"><%=data.civilId%></div>
+
+                            
+                        </a>
+                        <div class="social-accounts">
+                            <a href="javascript:void(0);" data-title="Shop Qr Code" data-toggle="tooltip">
+                                <i class="fa fa-qrcode"></i>
+                            </a>
+                          
+                        </div>
+                        <div class="bio">
+                              <%=data.createdAt%>
+                            </div>
+                       
+                    </div>
+                </div>
+            </div>
+                 
+            
+                    <div class="row mt-5">
+                        <div class=" col-md-3" id="tab1">
+                        <h5 style="color: hsl(246, 97%, 45%);">User details</h5>
+
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Contact Number</strong></td>
+                                        <td><%=data.mobile_no%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email</strong></td>
+                                        <td><%=data.email%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Passport</strong></td>
+                                        <td><%=data.passport%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Gender</strong></td>
+                                        <td>
+                                            <%=data.gender%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Married Status</strong></td>
+                                        <td>
+                                            <%=data.user_couple%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Date of birth</strong></td>
+                                        <td>
+                                            <%=data.bod%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Nationality</strong></td>
+                                        <td>
+                                            <%=data.nationality%>
+                                        </td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                       
+                      <div class="col-md-5">
+                        <h5 style="color: hsl(246, 97%, 45%);">Insurance Information</h5>
+                        <table class="table table-bordered  table-hover">
+                         <tbody>
+                         <tr>
+                             <td><strong>Insurance Name</strong></td>
+                             <td><%=data.insuranceType%></td>
+                         </tr>
+                         <tr>
+                             <td><strong>Insurance Type.</strong></td>
+                             <td><%=data.subType%></td>
+                         </tr>
+                         <tr>
+                             <td><strong>Plate no </strong></td>
+                             <td><%=data.plate_no%></td>
+                         </tr>
+                         <tr>
+                             <td><strong>Type</strong></td>
+                             <td><%=data.type%></td>
+                         </tr>
+                         <tr>
+                            <td><strong>Shape</strong></td>
+                            <td><%=data.shape%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Seats</strong></td>
+                            <td><%=data.seating_capacity%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Model year</strong></td>
+                            <td><%=data.model_year%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Policy period</strong></td>
+                            <td><%=data.policy_period%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Usages</strong></td>
+                            <td><%=data.usage%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Manufacturer</strong></td>
+                            <td><%=data.manufacturer%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Model</strong></td>
+                            <td><%=data.model%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fuel type</strong></td>
+                            <td><%=data.fuelType%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary color</strong></td>
+                            <td><%=data.primary_color%></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Secondary color</strong></td>
+                            <td><%=data.secondary_color%></td>
+                        </tr>
+                        </table>
+                      </div>
+                       
+                       
+                    <div class="col-md-4">
+                        <table class="table table-bordered  table-hover">
+                            <h5 style="color: hsl(246, 97%, 45%);">Policy Information</h5>
+                            <tr>
+                                <td><strong>Policy number</strong></td>
+                                <td>
+                                    <%=data.policy_number%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Policy start date</strong></td>
+                                <td>
+                                    <%=data.policy_start_date%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Policy end date</strong></td>
+                                <td>
+                                    <%=data.policy_ex_date%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Policy duration</strong></td>
+                                <td>
+                                    <%=data.duration%> Year
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Policy fee</strong></td>
+                                <td>
+                                    <%=data.policy_fee%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Submission fee</strong></td>
+                                <td>
+                                    <%=data.submission_fee%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total fee</strong></td>
+                                <td>
+                                    <%=data.policyPremium_total%>
+                                </td>
+                            </tr>
+                            
+    
+                        </table>
+                    </div>
+                    </div>
+                    <div class="row">
+
+                    <div class=" col-md-12" id="tab1">
+                        <h5 style="color: hsl(246, 97%, 45%);">Incident Information</h5>
+                        <div class="col-md-5">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Date</strong></td>
+                                        <td><%=data.date%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Time</strong></td>
+                                        <td><%=data.time%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Incident Type</strong></td>
+                                        <td><%=data.eventType%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>City</strong></td>
+                                        <td><%=data.city%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Area</strong></td>
+                                        <td><%=data.area%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Landmark</strong></td>
+                                        <td><%=data.landmark%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Description</strong></td>
+                                        <td><%=data.description%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-7">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Bank Name</strong></td>
+                                        <td><%=data.accName%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>A/C No</strong></td>
+                                        <td><%=data.accNumber%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Ifsc code</strong></td>
+                                        <td><%=data.ifsc_code%></td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                       
+                         </div>
+                          </div>
+                    </div>
+                </div>
+
+
+                <h5 style="color: blue"></h5>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/vender/update_motor_premium_claim_status/<%=data._id%>"
+                        method="POST">
+                        <div class="form-group">
+                          <label>Select Order Status</label>
+                          <select class="form-control select2bs4" name="status" style="width: 50%;">
+                              <option value="Selected" <%= data.status === 'Selected' || data.status === '0' ? 'selected' : '' %>>Selected</option>
+                              <option value="Approved" <%= data.status === 'Approved' || data.status === '1' ? 'selected' : '' %>>Approved</option>
+                              <option value="Rejected" <%= data.status === 'Rejected' || data.status === '2' ? 'selected' : '' %>>Rejected</option>
+                          </select>
+                      </div>
+              
+          
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-success col-sm-2">Save</button>
+                            <a class="btn btn-primary col-sm-2 m-l-10" href="/vender/motor_premium_claim_list">Back</a>
+                        </div>
+          
+                    </form>
+                </div>
+    
+
+
+            </div>
+    </div>
+
+    <div class="page-body ">
+
+     <h4 style="color: hsl(246, 97%, 45%);">Payment settlement</h4>
+
+        <div class="panel panel-default text-center">
+
+          <div class="row"> 
+
+
+              <div class="col-md-4 text-center" style="height:300px; display: flex; align-items: center; flex-direction: column; justify-content: space-around;">
+                  <span><h3>GH₵ 2500.00</h3>
+                      <h5 style="color: #009688;">Withdrawable Balance</h5></span>
+
+                      <span><h4>GH₵ 1000.00</h4>
+                        <h5 style="color: hsl(352, 80%, 40%);">Pending Withdraw</h5></span>
+              </div>
+              <div class="col-md-8">
+                <div class="col-md-9">
+                  <div class="row">
+                      <div class="col-md-8">
+                          <h3>GH₵ 5000.00</h3>
+                              <h4  style="color:black
+                              ">Total Earning amount</h4>
+                      </div>
+                    </div>
+                  
+                      <div class="row">
+                        <div class="col-md-8">
+                            <h4>GH₵ 1000.00</h4>
+                                <h5 style="color:black">Cash on Earning amount</h5>
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>GH₵ 500.00</h4>
+                                <h5  style="color:black;">Admin Commission amount</h5>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            
+                <div class="col-md-3">
+                    <div class="row">
+                        <span>
+                            <button type="open-button" onclick="openForm()"class="btn btn-info add-new"><a href="">All transactions</a></button></span>
+                            
+                               
+                        </div>
+                      </div>
+
+                    
+                    
+                </div>
+            </div>
+        </div>
+                   
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+</section>
+
+<%-include('./vender_footer.ejs')%>

@@ -1,0 +1,131 @@
+<%-include('./admin_header.ejs')%>
+<%-include('./admin_left_menu_bar.ejs')%>
+<style>
+    a:link,
+    a:visited {
+        text-decoration: none;
+    }
+
+    #imgs {
+    border-radius: 50%;
+    width: 150px; 
+    height: 150px;
+    display: block;
+    margin: 20px auto;
+     }
+
+    .content.dashboard {
+        padding: 20px;
+    }
+
+    .page-heading {
+        margin-bottom: 20px;
+    }
+
+    .breadcrumb {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .breadcrumb li {
+        display: inline;
+        margin-right: 5px;
+    }
+
+    .panel {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .panel-heading {
+        background-color: #f5f5f5;
+        padding: 10px;
+    }
+
+    .panel-body {
+        padding: 20px;
+    }
+
+    .form-group:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    #user-image-container,
+    #user-details-container {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #user-image-container h2,
+    #user-details-container h2,
+    #user-details-container h5 {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    @media (min-width: 768px) {
+        #user-image-container,
+        #user-details-container {
+            width: 48%;
+            float: left;
+        }
+
+        #user-image-container {
+            margin-right: 4%;
+        }
+    }
+
+    / New styles for aligned values /
+    #user-details-container h5 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    #user-details-container h5 b {
+        display: inline-block;
+        width: 150px;
+    }
+</style>
+
+<section class="content dashboard">
+    <div class="page-heading">
+        <h1>User Details</h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/user_list">user list</a></li>
+            <li class="active">user details</li>
+        </ol>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div id="user-image-container">
+                    <h3 class="text-center">User Image</h3>
+                    <% if (data.user_image) { %>
+                        <img src="/uploads/<%= data.user_image %>" alt="User Image" id="imgs">
+                    <% } else { %>
+                         <p class="text-center">Not Available</p>
+                    <% } %>
+                </div>
+                <div id="user-details-container">
+                    <h3>General Information</b>
+                    <h5>First Name :  <%= data.first_name %></h5>
+                    <h5>Country Code:  <%=data.country_code %></h5>
+                    <h5>Gender:  <%=data.gender %></h5>
+                    <h5>Mobile No.:  <%=data.mobile_no %></h5>
+                    <h5>Email:  <%=data.email %></h5>
+                    <h5>Nationality:  <%=data.nationality %></h5>
+                    <h5>Occupation:  <%=data.occupation %></h5>
+                    <h5>Language.:  <%=data.language %></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%-include('./admin_footer.ejs')%>

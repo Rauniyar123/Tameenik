@@ -1,0 +1,277 @@
+<%-include('./vender_header.ejs')%>
+<%-include('./vender_left_menu_bar.ejs')%>
+<section class="content">
+            
+    <div class="page-body">
+        
+        <h3  style="color: hsl(246, 97%, 45%);">Property Insurance Order Details</h3>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+                <div class="panel panel-default contact-grid">
+                    <div class="panel-body">
+                       
+                        <a href="javascript:void(0);">
+                            <img src="/uploads/<%=data.userId.user_image%>" alt="User Avatar" />
+                            <div class="name-surname"><%=data.userId.first_name%></div>
+                            <div class="place"><%=data.userId.second_name%></div>
+                            <div class="place"><%=data.userId.faimly_name%></div>
+                            <div class="place"><%=data.userId.gender%></div>
+
+                            
+                        </a>
+                        <div class="social-accounts">
+                            <a href="javascript:void(0);" data-title="Shop Qr Code" data-toggle="tooltip">
+                                <i class="fa fa-qrcode"></i>
+                            </a>
+                          
+                        </div>
+                        <div class="bio">
+                              <%=data.createdAt%>
+                            </div>
+                       
+                    </div>
+                </div>
+            </div>
+                 
+            
+                    <div class="row mt-6">
+                        <div class=" col-md-6" id="tab1">
+                        <h5 style="color: hsl(246, 97%, 45%);">Premium details</h5>
+
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                    <tr>
+                                        
+                                        <td><strong>Insurance name</strong></td>
+                                        <td><%=data.insuranceType%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Ownership Status</strong></td>
+                                        <td><%=data.ownershipStatus%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Policy name</strong></td>
+                                        <td><%=data.buldingValue%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mortgage</strong></td>
+                                        <td><%=data.mortgage%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Specific bank</strong></td>
+                                        <td><%=data.specificBank%> Year</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Home type</strong></td>
+                                        <td> <%=data.homeType%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>total floor</strong></td>
+                                        <td><%=data.no_of_floor%></td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td><strong>No of Occupants </strong></td>
+                                        <td>
+                                            <%=data.no_of_occupants%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Building age </strong></td>
+                                        <td>
+                                            <%=data.building_age%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total bedrooms </strong></td>
+                                        <td>
+                                            <%=data.no_of_bedroom%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Governorate</strong></td>
+                                        <td>
+                                            <%=data.governorate%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Area </strong></td>
+                                        <td>
+                                            <%=data.area%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Street </strong></td>
+                                        <td>
+                                            <%=data.street%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Jadda building </strong></td>
+                                        <td>
+                                            <%=data.jadda_building%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Paci no</strong></td>
+                                        <td>
+                                            <%=data.paci_no%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Po_box_no </strong></td>
+                                        <td>
+                                            <%=data.po_box_no%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Building no </strong></td>
+                                        <td>
+                                            <%=data.building_no%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Building name </strong></td>
+                                        <td>
+                                            <%=data.buildingName%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Query</strong></td>
+                                        <td>
+                                            <%=data.qery%>
+                                        </td>
+                                    </tr>
+                                   
+                                        
+                                    <tr>
+                                        <td><strong>Request date </strong></td>
+                                        <td>
+                                            <%=data.createdAt%>
+                                        </td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                       
+                      <div class="col-md-6">
+                        <h5 style="color: hsl(246, 97%, 45%);">User Information</h5>
+                        <table class="table table-bordered  table-hover">
+                            <tbody>
+                                <tr>
+                                  <td><strong>CivilId</strong></td>
+                                  <td><%= data.userId.civilId %></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Phone No.</strong></td>
+                                  <td><%= data.userId.mobile_no %></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Email</strong></td>
+                                  <td><%= data.userId.email %></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>First Name</strong></td>
+                                  <td><%= data.userId.first_name %></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Second Name</strong></td>
+                                  <td><%= data.userId.second_name%></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Last Name</strong></td>
+                                  <td><%= data.userId.last_name %></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Passport Number</strong></td>
+                                  <td><%= data.userId.passport %></td>
+                                </tr>
+                              </tbody>
+                        </table>
+                      </div>
+                    
+                    </div>
+                    <div class="row">
+
+                    <div class=" col-md-12" id="tab1">
+                        <h5 style="color: hsl(246, 97%, 45%);">Pay Amount Information</h5>
+                        <div class="col-md-8">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Policy number</strong></td>
+                                        <td> <%=data.policy_number%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Policy duration</strong></td>
+                                        <td> <%=data.policy_duration%> Year</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Policy start date</strong></td>
+                                        <td> <%=data.policy_start_date%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Policy end date</strong></td>
+                                        <td> <%=data.policy_ex_date%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Policy fee</strong></td>
+                                        <td> $<%=data.policy_fee%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total amount</strong></td>
+                                        <td>$<%=data.policy_submission_fee%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total amount</strong></td>
+                                        <td>$<%=data.policy_premium_total%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                     
+                          </div>
+                    </div>
+
+                    <h5 style="color: blue"></h5>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="/vender/update_property_premium_sale_status/<%=data._id%>"
+                            method="POST">
+                            <div class="form-group">
+                              <label>Select Order Status</label>
+                              <select class="form-control select2bs4" name="status" style="width: 50%;">
+                                  <option value="Selected" <%= data.status === 'Selected' || data.status === '0' ? 'selected' : '' %>>Selected</option>
+                                  <option value="Accepted" <%= data.status === 'Accepted' || data.status === '1' ? 'selected' : '' %>>Accepted</option>
+                                  <option value="Rejected" <%= data.status === 'Rejected' || data.status === '2' ? 'selected' : '' %>>Rejected</option>
+                              </select>
+                          </div>
+                  
+              
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-sm btn-success col-sm-2">Save</button>
+                                <a class="btn btn-primary col-sm-2 m-l-10" href="/vender/property_premium_sales_list">Back</a>
+                            </div>
+              
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+    </div>
+
+  
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+</section>
+<%-include('./vender_footer.ejs')%>

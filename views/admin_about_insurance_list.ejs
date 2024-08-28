@@ -1,0 +1,77 @@
+<%-include('./admin_header.ejs')%>
+<%-include('./admin_left_menu_bar.ejs')%>
+
+
+<section class="content dashboard">
+
+    <div class="page-heading">
+        <h1>Insurance Description List</h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/index">Home</a></li>
+            <li class="active">insurance description</li>
+        </ol>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <button class="btn btn-info"><i class="fa fa-plus"></i> <a href="/admin/create_about_insurance">Add New</a></but>
+        </div>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table js-exportable table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Image</th>
+                            <th>Insurance</th>
+                            <th>Insurance Type</th>
+                            <th>Title</th>
+                            <th>Text</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <!--<th>Delete</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < data.length; i++) { %>
+                             <tr>
+ 
+                             <td><%= i+1%></td>
+                             <td>
+                                 <img src="/uploads/<%=data[i].icon%>" alt="icon"
+                                 style="height:100px;width:100px;" >
+                             </td>
+                               <td><%=data[i].insuranceType%></td>
+                             <td><%=data[i].insuranceSubType%></td>
+                              <td><%=data[i].title%></td>
+                             <td><%=data[i].text%></td>
+                             <td>
+                                 <% if(data[i].about_insurance_status=="0") { %>
+                                     <a href="/admin/update_about_insurance_status/<%=data[i]._id%>"  class="btn btn-success">Active</a>
+                                 <% } else { %>
+                                     <a href="/admin/update_about_insurance_status/<%=data[i]._id%>"  class="btn btn-danger">Deactive</a>
+                                 <% } %>
+                             </td>
+ 
+                             <td>
+                                  <a href="/admin/edit_about_insurance/<%=data[i]._id%>" class="btn btn-primary">
+                                 <i class="fa fa-edit"></i>
+                                 </a>
+                             </td>
+ 
+                             
+                             </tr>
+                         <% } %>
+                     </tbody>
+ 
+                 </table>
+             </div>
+         </div>
+     </div>
+
+    </div>
+</section>
+<%-include('./admin_footer.ejs')%>
+ 

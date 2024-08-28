@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en"> 
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>    
+
+    <style type=""> 
+        h5 {font-family: montserrat;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 15px; margin-left: 2%; }
+    
+
+    .info-box.infobox-type-5 .icon i {
+    font-size: 24px!important;
+    }
+
+    .info-box.infobox-type-5 .icon {
+    right: -17px !important;
+    bottom: 0 !important;
+    opacity: 0.7;
+    }
+
+     .info-box .content .text {
+    font-family: montserrat;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 11px;
+    }
+
+
+
+    .sidebar .sidebar-nav .metismenu li a .material-icons + .nav-label {
+    position: relative;
+    top: -3px;
+}
+.info-box .content .number
+{
+    margin-top:9%!important;
+}
+
+</style>
+</head>
+
+<body>
+    <section class="content dashboard">
+        <div class="page-heading">
+            <h1>DASHBOARD</h1>
+        </div>
+
+
+        <div class="page-body"> 
+            <!-- Infobox -->
+            <div class="row clearfix">
+               
+              <div >
+               <h5>Insurance Company Analytics</h5>
+              </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box infobox-type-5 ">
+                        <a href="/vender/vender_policy_list">
+                            <div class="icon">
+                                <i class="material-icons">account_balance_wallet</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">Total Premium </div>
+                                <div class="number">
+                                   <%=totalVendor%>
+                                </div>
+                            </div>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box infobox-type-5">
+                        <a href="/vender/user_list">
+                            <div class="icon">
+                                <i class="material-icons">shopping_cart</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">Total Sales Premium</div>
+                                <div class="number">
+                                   <%=totalUser%>
+                                </div>
+                            </div>
+
+                    </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box infobox-type-5 ">
+                        <a href="/vender/vender_policy_sale_list">
+                            <div class="icon">
+                                <i class="material-icons">payment</i>
+                            </div>
+
+                            <div class="content">
+                                <div class="text">Total Revenue Generated</div>
+                                <div class="number">
+                                 <%=totalSalePolicy%>
+                                </div>
+                            </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box infobox-type-5 ">
+                        <a href="/vender/vender_policy_sale_list">
+                            <div class="icon">
+                                <i class="material-icons">payment</i>
+                            </div>
+                            <div class="content">
+                                <div class="text">Claim Settled Amount</div>
+                                <div class="number">
+                                  0
+                                </div>
+                            </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- #END# Infobox -->
+      <canvas id="myChart" style="width:80%;max-width:600px ; margin: 0 auto; padding-top: 100px;"></canvas>
+        <script>
+        var xValues = ["Total Premium", "Total Sales Premium",   "Total Revenue Generated", "Purchase Policy Users"];
+        var yValues = [55, 49, 44, 24];
+        var barColors = ["blue", "orange","green","red"];
+        
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues,
+              
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "World Wine Production 2018"
+            }
+          }
+        });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        
+<canvas id="myChart" style="width:80%;max-width:400px"></canvas>
+<script>
+var xValues = ["Total Premium","Total Sales Premium",   "Total Revenue", "Total Claim Settled Amount"];
+var yValues = [<%=totalVendor%>,<%=totalUser%>,<%=totalSalePolicy%>,15];
+var barColors = ["blue", "orange","green","red",];
+// var with=['100px']
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      barThickness: 10,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      
+    }
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>     
+</section>
+</body>
+
+</html>

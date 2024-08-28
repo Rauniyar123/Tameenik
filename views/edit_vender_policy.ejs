@@ -1,0 +1,248 @@
+<%-include('./vender_header.ejs')%>
+<%-include('./vender_left_menu_bar.ejs')%>
+<script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+<style type="text/css">
+    .form-horizontal {
+        margin-left: 25px;
+    }
+
+    .content {
+        margin-left: 118px;
+        margin-right: 5px;
+    }
+
+    .page-heading {
+        text-align: center;
+    }
+
+    .box {
+        display: block;
+        background-color: rgba(200, 200, 200, .25);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        overflow: hidden;
+        padding: 40px;
+    }
+
+    .js--image-preview input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .js--image-preview label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-weight: 400;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .js--image-preview label span {
+        display: inline-block;
+        width: 50%;
+        height: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .js--image-preview label span:hover i.material-icons {
+        color: lightgray;
+    }
+
+    .js--image-preview {
+        height: 200px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background-image: url("");
+        background-color: transparent;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 1px dashed;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color ease-in-out 150ms;
+    }
+
+    .js--image-preview::after {
+        content: "photo_size_select_actual";
+        font-family: "Material Icons";
+        position: relative;
+        font-size: 4.5em;
+        color: #e6e6e6;
+        top: calc(50% - 2rem);
+        left: calc(50% - 2.25rem);
+        z-index: 0;
+    }
+
+    .js--image-preview.js--no-default::after {
+        display: none;
+    }
+
+    .js--image-preview:nth-child(2) {
+        background-image: url("http://bastianandre.at/giphy.gif");
+    }
+
+    .drop {
+        display: block;
+        position: absolute;
+        background: rgba(95, 158, 160, 0.2);
+        border-radius: 100%;
+        transform: scale(0);
+    }
+
+    .animate {
+        -webkit-animation: ripple 0.4s linear;
+        animation: ripple 0.4s linear;
+    }
+</style>
+
+<section class="content dashboard">
+
+    <div class="page-heading">
+        <h1 style="margin-right: 150px;"><b>Update Policy</b></h1>
+        <ol class="breadcrumb">
+            <li><a href="/vender/vender_policy_list"><b>policy list</b></a></li>
+            <li class="active"><b>update policy</b></li>
+        </ol>
+    </div>
+
+    <section class="content">
+        <div class="page-body clearfix">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <?php echo $title; ?>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/vender/update_vender_policy/<%=data._id%>" enctype="multipart/form-data"
+                        method="POST">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label><b>Policy Name</b></label>
+                                <input type="text" class="form-control" name="policy_name"
+                                    placeholder="Enter Policy Name" value="<%=data.policy_name%>" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label><b>Select Category Type</b></label>
+                                <select class="form-control" name="category_type">
+                                    <option value='' ><%=data.category_type%></option>
+                                        <% for(var i=0; i < role_type.length; i++) { %>
+                                            <option value='<%=role_type[i]%>'>
+                                            <%=role_type[i]%>
+                                            </option>
+                                        <% } %>
+                                </select>
+                            </div>  
+                        </div> 
+                        <div class="form-group">
+                            
+                            <div class="col-sm-6">
+                                <label><b>Policy Ammount</b></label>
+                                <input type="text" class="form-control" name="ammount"
+                                    placeholder="Enter Policy Ammount" value="<%=data.ammount%>" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label><b>IDU Ammount</b></label>
+                                <input type="text" class="form-control" name="idu_ammount"
+                                    value="<%=data.idu_ammount%>" />
+                            </div>
+                        </div>   
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label><b>Policy Duration(In years)</b></label>
+                                <input type="text" class="form-control" name="policy_duration"
+                                    placeholder="Enter Policy Duration" value="<%=data.policy_duration%>" />
+                            </div>
+                            <!--<div class="col-sm-6">
+                                <label><b>Policy Logo</b></label>
+                                    <input type="file" class="form-control" name="policy_logo" 
+                                    value="<%=data.policy_logo%>" />
+                            </div>--> 
+                        </div>  
+                        <div class="form-group">    
+                            <div class="col-sm-12 m-b-10">
+                                <label><b>Description</b></label>
+                                <textarea type="text" class="form-control"  name="description"
+                                    id="description" placeholder="Enter Description" maxlength="500" ><%=data.description%></textarea>
+                                     <span style= "color:red" id="charCount">500 characters remaining</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <p class="text-center"><label for="dicky">Policy Logo</label></p>
+                                <div class="box">
+                                    <div class="js--image-preview" id="imagePreview">
+                                        <label>
+                                            <!-- Input for file selection -->
+                                            <input type="file" name="policy_logo" id="dicky" class="image-upload" onchange="validateImage(this, 'imagePreviewImg');" 
+                                             <!-- Image preview -->
+                                            <img id="imagePreviewImg" src="/uploads/<%=data.policy_logo%>" alt="image" style="height: 100px; width: 100px;">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-success col-sm-2">Save</button>
+                            <a class="btn btn-primary col-sm-2 m-l-10" href="/vender/vender_policy_list">Back</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+<%-include('./vender_footer.ejs')%>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
+
+<script>
+    const textarea = document.getElementById('description');
+    const charCount = document.getElementById('charCount');
+    
+    textarea.addEventListener('input', function() {
+        const remaining = 500 - textarea.value.length;
+        charCount.textContent = remaining + ' characters remaining';
+    });
+</script>
+<script>
+    function validateImage(input) {
+        const file = input.files[0];
+
+        // If both validations pass, display the image preview
+        previewImage(input, 'imagePreviewImg');
+    }
+
+    function previewImage(input, previewId) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const preview = document.getElementById(previewId);
+            preview.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>

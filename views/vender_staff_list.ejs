@@ -1,0 +1,99 @@
+<%-include('./vender_header.ejs')%>
+<%-include('./vender_left_menu_bar.ejs')%>
+
+<style>
+    a{
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
+<section class="content dashboard">
+    <div class="page-heading">
+        <h1>Staff List</h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/index">Home</a></li>
+            <li class="active">staff list</li>
+        </ol>
+    </div>
+    <div class="panel panel-default">
+       <div class="panel-heading">
+            <button class="btn btn-info"><i class="fa fa-plus"></i> <a href="/vender/create_vender_staff">Add New</a></button>
+        </div>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table js-exportable table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Description</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th>Created By</th>
+                            <th>Updated By</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <% for(var i=0; i < data.length; i++) { %>
+                            <tr>
+                                
+                            <td><%= i+1%></td>
+                            <td>
+                                <img src="/uploads/<%=data[i].staff_image%>" alt="image"
+                                style="height:100px;width:100px;" >
+                            </td>
+
+                            <td><%=data[i].name%></td> 
+                             <td><%=data[i].designation%></td>
+                            <td><%=data[i].description%></td>
+                            <td><%= new Date(data[i].createdAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) %></td> 
+                            <td><%= new Date(data[i].updatedAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) %></td>
+                            <td><%=data[i].createdBy%></td> 
+                            <td> 
+                            <% if (data[i].updatedBy) { %>
+                               <%= data[i].updatedBy %>
+                            <% } else { %>
+                                Not Available
+                            <% } %>
+                            </td>  
+                            <td>
+                             <% if(data[i].staff_status==0) { %>
+                               <a href="/vender/update_vender_staff_status/<%=data[i]._id%>"  class="btn btn-success" >Active</a>
+                             <% } else { %>
+                                <a href="/vender/update_vender_staff_status/<%=data[i]._id%>"  class="btn btn-danger">Deactive</a>
+                              <% } %>
+                            </td>
+
+                    
+                            <td>
+                               <a href="/vender/edit_vender_staff/<%=data[i]._id%>" class="btn btn-primary">
+                                <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+
+                            <td>
+                           
+                            <a href ="/vender/delete_vender_staff/<%=data[i]._id%>"class="btn btn-circle  btn-sm  btn-danger"><i class="fa fa-trash"></i></a>
+                          
+                            </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+</section>
+<%-include('./vender_footer.ejs')%>

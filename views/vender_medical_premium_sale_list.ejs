@@ -1,0 +1,95 @@
+<%-include('./vender_header.ejs')%>
+<%-include('./vender_left_menu_bar.ejs')%>
+
+<style>
+    a{
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
+<section class="content dashboard">
+    <div class="page-heading">
+        <h1>Medical Insurance</h1>
+        <ol class="breadcrumb">
+            <li><a href="/vender/index">Home</a></li>
+            <li class="active">Medical Insurance</li>
+        </ol>
+    </div>
+    <div class="panel panel-default">
+       <!-- <div class="panel-heading">
+            <button class="btn btn-info"><i class="fa fa-plus"></i> <a href="/vender/create_vender_staff">Add New</a></button>
+        </div> -->
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table js-exportable table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Image</th>
+                            <th>User Name</th>
+                            <th>CivilId</th>
+                            <th>Phone no</th>
+                            <th>Policy Name</th>
+                            <th>Policy No</th>
+                            <th>Designation</th>
+                            <th>Ammount</th>
+                            <th>Request Date</th>
+                            <th>Status</th>
+                            <th>Detail</th>
+                          
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <% for(var i=0; i < data.length; i++) { %>
+                            <tr>
+                                
+                            <td><%= i+1%></td>
+                            <td>
+                                <img src="/uploads/<%=data[i].image%>" alt="image"
+                                style="height:100px;width:100px;" >
+                            </td>
+
+                            <td><%=data[i].firstName%></td> 
+                            <td><%=data[i].civilId%></td> 
+                            <td><%=data[i].mobile%></td> 
+                            <td><%=data[i].policy_name%></td> 
+                            <td><%=data[i].policy_number%></td> 
+                             <td><%=data[i].duration%> Year</td>
+                            <td> $<%=data[i].amount%></td>
+                            <td><%= new Date(data[i].createdAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) %></td> 
+                           
+                            <td>
+                                <% console.log(data[i]); %>
+
+                                <% if (data[i].status=== "Accepted") { %>
+                                    <span style="color: blue;">Accepted</span>
+                                <% } else if (data[i].status  ==="Rejected") { %>
+                                    <span style="color: red;">Rejected</span>
+                                <% } else { %>
+                                    <span style="color: rgb(187, 37, 107);">New</span>
+                                <% } %>
+                              </td>
+
+
+                            <td>
+                           
+                            <a href ="/vender/medical_premium_sales_details/<%=data[i]._id%>"class="btn btn-primary">
+                                <i class="fa fa-eye"></i></a>
+                          
+                            </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+</section>
+<%-include('./vender_footer.ejs')%>

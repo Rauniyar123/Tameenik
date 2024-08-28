@@ -1,0 +1,266 @@
+<%-include('./admin_header.ejs')%>
+<%-include('./admin_left_menu_bar.ejs')%>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+
+<style type="text/css">
+    .form-horizontal {
+        margin-left: 25px;
+    }
+
+    .content {
+        margin-left: 118px;
+        margin-right: 5px;
+    } 
+
+    .page-heading {
+        text-align: center;
+    }
+
+    .box {
+        display: block;
+        background-color: rgba(200, 200, 200, .25);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        overflow: hidden;
+        padding: 40px;
+    }
+
+    .js--image-preview input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .js--image-preview label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-weight: 400;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .js--image-preview label span {
+        display: inline-block;
+        width: 50%;
+        height: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .js--image-preview label span:hover i.material-icons {
+        color: lightgray;
+    }
+
+    .js--image-preview {
+        height: 200px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background-image: url("");
+        background-color: transparent;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 1px dashed;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color ease-in-out 150ms;
+    }
+
+    .js--image-preview::after {
+        content: "photo_size_select_actual";
+        font-family: "Material Icons";
+        position: relative;
+        font-size: 4.5em;
+        color: #e6e6e6;
+        top: calc(50% - 2rem);
+        left: calc(50% - 2.25rem);
+        z-index: 0;
+    }
+
+    .js--image-preview.js--no-default::after {
+        display: none;
+    }
+
+    .js--image-preview:nth-child(2) {
+        background-image: url("http://bastianandre.at/giphy.gif");
+    }
+
+    .drop {
+        display: block;
+        position: absolute;
+        background: rgba(95, 158, 160, 0.2);
+        border-radius: 100%;
+        transform: scale(0);
+    }
+
+    .animate {
+        -webkit-animation: ripple 0.4s linear;
+        animation: ripple 0.4s linear; 
+    }
+</style>
+
+<section class="content dashboard">
+
+    <div class="page-heading">
+        <h1 style="margin-right: -80px;"><b>Update About Insurance</b></h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/about_insurance_list"><b>about insurance list</b></a></li>
+            <li class="active"><b>update about insurance</b></li>
+        </ol>
+    </div>
+
+    <section class="content">
+        <div class="page-body clearfix">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <?php echo $title; ?>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/admin/update_about_insurance/<%=data._id%>" enctype="multipart/form-data"
+                        method="POST">
+
+                        
+
+                        <div class="form-group"> 
+                            <div class="col-sm-6">
+                                <label for="premium_type">Select Premium Type</label>
+                                <select class="form-control select2bs4" id="premium_type" name="insuranceType" style="width: 100%;" >
+                                    <option value=" " disabled selected><%=data.insuranceType%></option>
+                                    <option value="Building Premium">Building Premium</option>
+                                    <option value="Medical Premium">Medical Premium</option>
+                                    <option value="Marine Premium">Marine Premium</option>
+                                    <option value="Travel Premium">Travel Premium</option>
+                                    <option value="Motor Premium">Motor Premium</option>
+                                    <option value="Life Premium">Life Premium</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="sub_premium_type">Select Sub Premium Type</label>
+                                    <select class="form-control select2bs4" id="sub_premium_type" name="insuranceSubType" style="width: 100%;" disabled>
+                                        <option value=" " disabled selected><%=data.insuranceSubType%></option>
+                                        <!-- Building Premium options -->
+                                        <option value="Building Premium" data-premium-type="Building Premium">Building Premium</option>
+                                        <option value="Content Premium" data-premium-type="Building Premium">Content Premium</option>
+                                        <option value="Building & Content Premium" data-premium-type="Building Premium">Building & Content Premium</option>
+                                        
+                                        <!-- Medical Premium options -->
+                                        <option value="Gold Premium" data-premium-type="Medical Premium">Gold Premium</option>
+                                        <option value="Sliver Premium" data-premium-type="Medical Premium">Sliver Premium</option>
+                                        <option value="Platinum Premium" data-premium-type="Medical Premium">Platinum Premium</option>
+                                        
+                                        <!-- Marine Premium options -->
+                                        <option value="TPL Marine Premium" data-premium-type="Marine Premium">TPL Marine Premium</option>
+                                        <option value="Lamprehencive Marine Premium" data-premium-type="Marine Premium">Lamprehencive Marine Premium</option>
+                                       
+                                        <!-- Travel Premium options -->
+                                        <option value="Travel Premium" data-premium-type="Travel Premium">Travel Premium</option>
+                                        
+                                        <!-- Motor Premium options -->
+                                        <option value="TPL Motor Premium" data-premium-type="Motor Premium">TPL Motor Premium</option>
+                                        <option value="Lamprehensige Motor Premium" data-premium-type="Motor Premium">Lamprehensige Motor Premium</option>
+                                        
+                                        <!-- Life Premium options -->
+                                        <option value="Term Life Premium" data-premium-type="Life Premium">Term Life Premium</option>
+                                        <option value="Health Premium" data-premium-type="Life Premium">Health Premium</option>
+                                        <option value="Long Term Disability Premium" data-premium-type="Life Premium">Long Term Disability Premium</option>
+                                    </select>
+                                </div> 
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label><b>Title</b></label>
+                                <input type="text" class="form-control" name="title"
+                                    value="<%=data.title%>"  />
+                            </div>
+                        
+                            <div class="col-sm-6">
+                                <label><b>Text</b></label>
+                                <input type="text" class="form-control" name="text"
+                                   value="<%=data.text%>"   />
+                            </div>
+                        </div> 
+
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <p class="text-center"><label for="dicky">Select icon only png, jpeg, and jpg</label></p>
+                                <div class="box">
+                                    <div class="js--image-preview" id="imagePreview">
+                                        <label>
+                                            <!-- Input for file selection -->
+                                            <input type="file" name="icon" id="dicky" class="image-upload" 
+                                             <!-- Image preview -->
+                                            <img id="imagePreviewImg" src="/uploads/<%=data.icon%>" alt="image" style="height: 100px; width: 100px;">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-success col-sm-2">Save</button>
+                            <a class="btn btn-primary col-sm-2 m-l-10" href="/admin/about_insurance_list">Back</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+<%-include('./admin_footer.ejs')%> 
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
+<script>
+document.getElementById('premium_type').addEventListener('change', function() {
+    const selectedPremiumType = this.value;
+    const subPremiumTypeSelect = document.getElementById('sub_premium_type');
+    const options = subPremiumTypeSelect.querySelectorAll('option');
+
+    // Clear the current options
+    options.forEach(option => {
+        if (option.value !== "Select Type") {
+            option.style.display = 'none';
+        }
+    });
+
+    // Populate new options based on the selected premium type
+    options.forEach(option => {
+        if (option.dataset.premiumType === selectedPremiumType) {
+            option.style.display = 'block';
+        }
+    });
+
+    // Enable or disable the sub premium type select box
+    if (selectedPremiumType === "Select Type") {
+        subPremiumTypeSelect.setAttribute("disabled", "disabled");
+    } else {
+        subPremiumTypeSelect.removeAttribute("disabled");
+    }
+
+    // Reset the sub premium type select box
+    subPremiumTypeSelect.value = "Select Type";
+});
+</script>

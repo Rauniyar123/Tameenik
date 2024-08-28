@@ -1,0 +1,141 @@
+<%-include('./admin_header.ejs')%>
+<%-include('./admin_left_menu_bar.ejs')%>
+
+<style>
+    a{
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
+<section class="content dashboard">
+
+    <div class="page-heading">
+        <h1>Insurance Company List</h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/index">Home</a></li>
+            <li class="active">insurance company list</li>
+        </ol>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <button class="btn btn-info"><i class="fa fa-plus"></i> <a href="/admin/create_vendor">Add New</a></button>
+        </div>
+ 
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table js-exportable table-bordered">
+
+                    <thead>
+                        <tr> 
+                            <th>S.No</th>
+                            <th>Company Logo</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Category Type</th>
+                            <th>Mobile No</th>
+                            <th>Address</th>
+                            <th>Id Proof No</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th>Created By</th>
+                            <th>Updated By</th>
+                            <th>Status</th> 
+                            <th>Edit</th>
+                            <!-- <th>Delete</th> -->
+                        </tr>
+                    </thead>
+                    <tbody id="passwordTable">
+                       <% for(var i=0; i < data.length; i++) { %>
+                            <tr>
+                                
+                            <td><%= i+1%></td>
+                            <td>
+                                <img src="/uploads/<%=data[i].company_logo%>" alt="image"
+                                style="height:100px;width:100px;" >
+                            </td>                   
+                            <td><%=data[i].user_name%></td> 
+                            <td><%=data[i].email%></td>
+                            <td>
+                            <input type="password" id="passwordField<%= i %>" value="<%= data[i].password %>" >
+                            <span class="password-toggle-btn" onclick="togglePasswordVisibility(<%= i %>)">
+                            <!-- Closed eye icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                            </svg>
+                            <!-- Open eye icon (hidden by default) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="display:none">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                           </svg>
+                            </span>
+                            </td>
+                            <td><%=data[i].category_type%></td>
+                            <td><%=data[i].mobile_no%></td>
+                            <td><%=data[i].address%></td>
+                            <td><%=data[i].id_proof_no%></td>
+
+                            <td><%= new Date(data[i].createdAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) %></td> 
+                            <td><%= new Date(data[i].updatedAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}) %></td>
+                            <td><%=data[i].createdBy%></td> 
+                            <td>
+                            <% if (data[i].updatedBy) { %>
+                               <%= data[i].updatedBy %>
+                            <% } else { %>
+                                Not Available
+                            <% } %>
+                            </td>   
+                            <td>
+                           
+                               <% if(data[i].vendor_status==0) { %>
+                               <a href="/admin/update_vendor_status/<%=data[i]._id%>"  class="btn btn-success" >Active</a>
+                               <% } else { %>
+                                <a href="/admin/update_vendor_status/<%=data[i]._id%>"  class="btn btn-danger">Deactive</a>
+                              <% } %>
+                            </td>
+                            <td>
+                               <a href="/admin/edit_vendor/<%=data[i]._id%>" class="btn btn-primary">
+                                <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                            
+                            <!-- <td>
+                            
+                            <a href ="/admin/delete_vendor/<%=data[i]._id%>"class="btn btn-circle  btn-sm  btn-danger" onclick="return confirmDelete(event)"><i class="fa fa-trash"></i></a>
+                            </td> -->
+                            </tr>
+                            <% } %>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+</section>
+<%-include('./admin_footer.ejs')%>
+<script>
+    function togglePasswordVisibility(index) {
+        var passwordField = document.getElementById("passwordField" + index);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
+<script>
+    function confirmDelete(event) {
+        if (confirm('Are you sure you want to delete this insurance company?')) {
+            // User clicked OK, allow the href to proceed
+            return true;
+        } else {
+            // User clicked Cancel, prevent the href from proceeding
+            event.preventDefault();
+            return false;
+        }
+    }
+</script>
